@@ -1,0 +1,68 @@
+# MapleMind runtime configuration. Every value can be overridden with MAPLEMIND__SECTION__KEY env vars
+# e.g. MAPLEMIND__RETRIEVAL__TOP_K=6
+app: {name: MapleMind, version: 0.1.0}
+
+llm:
+  provider: mock            # mock | ollama | hf | openai_compat
+  model: qwen2.5:1.5b-instruct
+  base_url: http://localhost:11434
+  hf_model_id: Qwen/Qwen2.5-1.5B-Instruct
+  adapter_path: finetune/outputs/maplemind-qwen25-1.5b-lora   # LoRA adapter for the fine-tuned variant (hf provider)
+  temperature: 0.2
+  top_p: 0.9
+  max_new_tokens: 400
+  seed: 7
+
+judge:
+  provider: mock            # LLM-as-judge model; ideally a DIFFERENT family from the generator
+  model: llama3.1:8b
+
+embeddings:
+  provider: hashing         # hashing (offline, deterministic) | sentence_transformers
+  model: BAAI/bge-small-en-v1.5
+  dim: 512
+
+vectorstore:
+  backend: chroma           # chroma (ChromaDB via langchain_chroma, persistent HNSW, cosine) | numpy (fallback)
+  collection: maplemind_kb
+  path: .maplemind/index
+
+chunking:
+  strategy: markdown_section   # split on headings, then sliding window inside long sections
+  max_tokens: 160
+  overlap_tokens: 30
+
+retrieval:
+  candidate_k: 12           # candidates from each of BM25 and dense before fusion
+  top_k: 4                  # passages handed to the composer
+  rrf_k: 60                 # reciprocal-rank-fusion constant
+  rerank: lexical           # none | lexical | cross_encoder
+  cross_encoder_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+  mmr_lambda: 0.7           # 1.0 = pure relevance, lower = more diversity
+  min_evidence_score: 0.18  # below this the dynamic flow rewrites the query, then abstains
+  query_rewrite: true
+  min_query_coverage: 0.0   # 0 = off (baseline). Set ~0.5 to reject topically-adjacent but off-target evidence (see eval case F1)
+
+context:
+  max_context_tokens: 1400  # evidence budget
+  max_history_turns: 4      # older turns are summarised
+  reserve_for_answer: 400
+
+screening:
+  max_questions: 12         # hard budget on follow-up questions per session
+  instruments: [phq9, gad7]
+
+verification:
+  max_retries: 1            # recompose attempts after a failed grounding check
+  min_supported_ratio: 0.75 # share of factual sentences that must be supported
+  numeric_check: true       # every number in an answer must appear in its cited passage
+
+telemetry:
+  trace_path: .maplemind/traces.jsonl
+  slo_p95_ms: 4000
+  cost_per_1k_tokens: {input: 0.0, output: 0.0}   # local models: 0; set provider prices for hosted models
+
+vision:
+  backend: mock             # mock | hf
+  hf_model_id: nateraw/food # ViT fine-tuned on Food-101
+  min_confidence: 0.55      # below -> ask the user to confirm the dish

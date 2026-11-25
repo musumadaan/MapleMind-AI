@@ -1,0 +1,10 @@
+{
+  "name": "maplemind-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Node.js API gateway for MapleMind: streams LangGraph agent steps from the Python bridge over SSE",
+  "main": "index.js",
+  "scripts": { "start": "node index.js", "dev": "node --watch index.js", "test": "node --test" },
+  "dependencies": { "express": "^4.21.2" }
+}

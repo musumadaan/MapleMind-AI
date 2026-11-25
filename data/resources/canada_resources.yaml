@@ -1,0 +1,26 @@
+# Navigation directory. Verify numbers before production; last reviewed 2026-11.
+national:
+  crisis:
+    - {name: "9-8-8 Suicide Crisis Helpline", contact: "Call or text 9-8-8", hours: "24/7", lang: "EN/FR", url: "https://988.ca"}
+    - {name: "Emergency services", contact: "9-1-1", hours: "24/7", url: ""}
+    - {name: "Kids Help Phone", contact: "1-800-668-6868 or text CONNECT to 686868", hours: "24/7", audience: "youth", url: "https://kidshelpphone.ca"}
+    - {name: "Hope for Wellness Help Line", contact: "1-855-242-3310", hours: "24/7", audience: "Indigenous peoples", url: "https://www.hopeforwellness.ca"}
+    - {name: "National Eating Disorder Information Centre (NEDIC)", contact: "1-866-633-4220", hours: "see nedic.ca", url: "https://nedic.ca"}
+  information:
+    - {name: "Canada's Food Guide", url: "https://food-guide.canada.ca"}
+    - {name: "Obesity Canada - patient resources", url: "https://obesitycanada.ca"}
+    - {name: "Canadian Mental Health Association - find your local branch", url: "https://cmha.ca/find-your-cmha/"}
+provinces:
+  "ON": {health_line: "Health811 (dial 8-1-1)", url: "https://health811.ontario.ca", mental_health: "ConnexOntario 1-866-531-2600"}
+  "BC": {health_line: "HealthLink BC (dial 8-1-1)", url: "https://www.healthlinkbc.ca"}
+  "AB": {health_line: "Health Link (dial 8-1-1)", url: "https://www.albertahealthservices.ca", mental_health: "Mental Health Help Line 1-877-303-2642"}
+  "QC": {health_line: "Info-Sante / Info-Social (dial 8-1-1)", url: "https://www.quebec.ca/en/health/finding-a-resource/info-sante-811"}
+  "MB": {health_line: "Health Links - Info Sante (dial 8-1-1 outside Winnipeg)", url: "https://www.gov.mb.ca/health"}
+  "SK": {health_line: "HealthLine (dial 8-1-1)", url: "https://www.saskhealthauthority.ca"}
+  "NS": {health_line: "Nova Scotia 811", url: "https://811.novascotia.ca"}
+  "NB": {health_line: "Tele-Care (dial 8-1-1)", url: "https://www2.gnb.ca"}
+  "NL": {health_line: "HealthLine (dial 8-1-1)", url: "https://www.gov.nl.ca/hcs"}
+  "PE": {health_line: "Dial 8-1-1", url: "https://www.princeedwardisland.ca"}
+  "YT": {health_line: "Dial 8-1-1", url: "https://yukon.ca"}
+  "NT": {health_line: "Dial 8-1-1", url: "https://www.hss.gov.nt.ca"}
+  "NU": {health_line: "Contact local health centre", url: "https://www.gov.nu.ca/health"}

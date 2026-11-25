@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "maplemind"
+version = "0.1.0"
+description = "MapleMind: a guideline-grounded, multi-agent mind-body health navigator for Canadians"
+requires-python = ">=3.10"
+dependencies = ["langgraph>=0.2", "langchain-core>=0.3", "langchain>=0.3", "langchain-chroma>=0.2", "chromadb>=0.5", "langchain-ollama>=0.2", "rank_bm25>=0.2.2", "numpy>=1.26", "pyyaml>=6.0", "pillow>=10.0", "requests>=2.31"]
+
+[project.scripts]
+maplemind = "maplemind.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

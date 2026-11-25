@@ -1,0 +1,95 @@
+%% static workflow
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	safety(safety)
+	crisis(crisis)
+	screening(screening)
+	evidence(evidence)
+	composer(composer)
+	verifier(verifier)
+	navigator(navigator)
+	finalize(finalize)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> safety;
+	composer --> verifier;
+	crisis --> finalize;
+	evidence --> composer;
+	navigator --> finalize;
+	safety -.-> crisis;
+	safety -. &nbsp;next&nbsp; .-> screening;
+	screening -.-> evidence;
+	screening -.-> finalize;
+	verifier --> navigator;
+	finalize --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+
+
+%% dynamic workflow
+---
+config:
+  flowchart:
+    curve: linear
+---
+graph TD;
+	__start__([<p>__start__</p>]):::first
+	safety(safety)
+	crisis(crisis)
+	router(router)
+	clarify(clarify)
+	decline(decline)
+	ed_support(ed_support)
+	screening(screening)
+	vision(vision)
+	meal_confirm(meal_confirm)
+	evidence(evidence)
+	rewrite(rewrite)
+	abstain(abstain)
+	composer(composer)
+	verifier(verifier)
+	recompose(recompose)
+	navigator(navigator)
+	finalize(finalize)
+	__end__([<p>__end__</p>]):::last
+	__start__ --> safety;
+	abstain --> navigator;
+	clarify --> finalize;
+	composer --> verifier;
+	crisis --> finalize;
+	decline --> finalize;
+	ed_support --> navigator;
+	evidence -.-> abstain;
+	evidence -.-> composer;
+	evidence -.-> finalize;
+	evidence -.-> rewrite;
+	meal_confirm --> evidence;
+	navigator --> finalize;
+	recompose --> verifier;
+	rewrite --> evidence;
+	router -.-> clarify;
+	router -.-> decline;
+	router -.-> ed_support;
+	router -.-> evidence;
+	router -.-> meal_confirm;
+	router -.-> screening;
+	router -.-> vision;
+	safety -.-> crisis;
+	safety -. &nbsp;next&nbsp; .-> router;
+	screening -.-> evidence;
+	screening -.-> finalize;
+	verifier -.-> navigator;
+	verifier -.-> recompose;
+	vision -.-> evidence;
+	vision -.-> finalize;
+	finalize --> __end__;
+	classDef default fill:#f2f0ff,line-height:1.2
+	classDef first fill-opacity:0
+	classDef last fill:#bfb6fc
+
+

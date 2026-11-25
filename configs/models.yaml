@@ -1,0 +1,13 @@
+# Model matrix for eval/model_matrix.py. Identical generation settings for every model (fair comparison).
+generation: {temperature: 0.0, top_p: 1.0, max_new_tokens: 300, seed: 7}
+models:
+  mock:            {provider: mock, model: mock}                                       # harness smoke test only
+  base_qwen25_1.5b: {provider: hf, hf_model_id: Qwen/Qwen2.5-1.5B-Instruct, use_adapter: false}
+  ft_qwen25_1.5b:   {provider: hf, hf_model_id: Qwen/Qwen2.5-1.5B-Instruct, use_adapter: true,
+                     adapter_path: finetune/outputs/maplemind-qwen25-1.5b-lora}
+  alt_llama32_3b:   {provider: hf, hf_model_id: meta-llama/Llama-3.2-3B-Instruct, use_adapter: false}   # open alternative (gated licence)
+  alt_phi35_ollama: {provider: ollama, model: "phi3.5", base_url: "http://localhost:11434"}         # open alternative via Ollama
+  # pipeline-verification models built locally by finetune/make_tiny_base.py (random init, NOT a quality comparison)
+  tiny_base:       {provider: hf, hf_model_id: finetune/outputs/tiny-qwen2-base, use_adapter: false}
+  tiny_ft:         {provider: hf, hf_model_id: finetune/outputs/tiny-qwen2-base, use_adapter: true, adapter_path: finetune/outputs/tiny-qwen2-lora}
+  tiny_ft_bal:     {provider: hf, hf_model_id: finetune/outputs/tiny-qwen2-base, use_adapter: true, adapter_path: finetune/outputs/tiny-qwen2-lora-balanced}

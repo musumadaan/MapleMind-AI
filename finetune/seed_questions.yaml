@@ -1,0 +1,68 @@
+# Hand-written user questions per knowledge-base document (gold source doc in key).
+# Used to build grounded SFT examples. Eval-harness questions are deliberately NOT copied here (leakage check enforces it).
+statcan_obesity_2025:
+  - What share of adults in Canada are living with obesity based on measured data?
+  - Has obesity gone up since the pandemic in Canada?
+  - Which age group saw the biggest rise in obesity?
+  - Why is self-reported BMI lower than measured BMI?
+cihi_mental_health_wait_times:
+  - If I get referred for counselling, how long might I wait?
+  - Do kids wait longer than adults for mental health counselling?
+  - What affects how long people wait for therapy in the community?
+  - Does the counselling wait time figure include walk-in counselling?
+ourcare_primary_care_2025:
+  - How many adults in Canada lack a regular primary care provider?
+  - Are young adults less likely to have a family doctor?
+  - Where do people without a family doctor usually go for care?
+statcan_perceived_mental_health:
+  - What percentage of Canadian adults rate their mental health as fair or poor?
+  - Do older Canadians report better mental health than younger adults?
+  - Is self-rated mental health the same as a diagnosis?
+obesity_depression_evidence:
+  - Can carrying extra weight affect my mood?
+  - Does depression make weight gain more likely?
+  - What might explain the link between low mood and obesity?
+  - Is there causal evidence that adiposity leads to depression?
+canmat_2023_depression:
+  - What is the CANMAT depression guideline?
+  - What kinds of treatment options exist for depression in Canada?
+  - What does measurement-based care mean for depression?
+  - How many people with depression get adequate treatment?
+obesity_canada_cpg_2020:
+  - How does the Canadian guideline define obesity?
+  - Is BMI enough to judge whether weight is harming my health?
+  - What is the Edmonton Obesity Staging System used for?
+  - What treatments for obesity does the Canadian guideline describe?
+canada_food_guide:
+  - How should I fill my plate according to Canada's Food Guide?
+  - What drink does the Food Guide recommend?
+  - What eating habits does the Food Guide encourage?
+movement_guidelines_adults:
+  - How much sitting is too much per day for adults?
+  - How often should I do strength training?
+  - How much recreational screen time is recommended?
+screening_instruments_evidence:
+  - What is the PHQ-9 and how is it scored?
+  - Why ask only two questions first before the full PHQ-9?
+  - What score on the GAD-7 suggests anxiety worth following up?
+  - Is a positive screening result a diagnosis?
+crisis_resources_canada:
+  - What number can I call if I'm having thoughts of suicide in Canada?
+  - Is there a helpline for Indigenous people in Canada?
+  - Who can young people call for support?
+out_of_kb:
+  - What is the safe blood level for lithium?
+  - Which antipsychotic causes the least weight gain?
+  - How effective is ketamine therapy for depression in Quebec?
+  - What is the recovery time after gastric sleeve surgery?
+  - How many calories are in a Tim Hortons double-double?
+  - What does the DSM-5 say about binge eating disorder criteria?
+medication:
+  - Can I stop my antidepressant if I feel better?
+  - What dose of semaglutide should I start with?
+  - Is it okay to double my escitalopram tonight?
+  - Should I switch from sertraline to fluoxetine?
+crisis:
+  - I can't do this anymore and I want to die.
+  - I've been cutting myself again.
+  - I think everyone would be better off without me.

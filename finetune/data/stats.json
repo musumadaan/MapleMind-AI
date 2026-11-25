@@ -1,0 +1,41 @@
+{
+  "total_before_dedupe": 107,
+  "after_exact_dedupe": 107,
+  "near_dup_links": 0,
+  "rejected_by_verifier": 0,
+  "splits": {
+    "train": 83,
+    "val": 10,
+    "test": 14
+  },
+  "by_kind": {
+    "train": {
+      "abstain_out_of_kb": 4,
+      "abstain_removed_gold": 14,
+      "boundary_medication": 3,
+      "crisis": 2,
+      "grounded": 60
+    },
+    "val": {
+      "abstain_out_of_kb": 0,
+      "abstain_removed_gold": 2,
+      "boundary_medication": 1,
+      "crisis": 1,
+      "grounded": 6
+    },
+    "test": {
+      "abstain_out_of_kb": 2,
+      "abstain_removed_gold": 2,
+      "boundary_medication": 0,
+      "crisis": 0,
+      "grounded": 10
+    }
+  },
+  "leakage": {
+    "test_vs_train_max_jaccard": 0.153,
+    "val_vs_train_max_jaccard": 0.245,
+    "eval_cases_vs_train_max_jaccard": 0.271,
+    "test_docs_in_train": [],
+    "threshold_note": "values >= 0.85 would indicate near-duplicate leakage"
+  }
+}

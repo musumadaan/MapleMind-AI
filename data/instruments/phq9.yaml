@@ -1,0 +1,19 @@
+id: phq9
+name: Patient Health Questionnaire-9
+source: "Kroenke, Spitzer & Williams (2001). Developed by Drs. Spitzer, Williams, Kroenke and colleagues with an educational grant from Pfizer Inc. No permission required to reproduce, translate, display or distribute."
+stem: "Over the last 2 weeks, how often have you been bothered by the following problem?"
+options: {0: "Not at all", 1: "Several days", 2: "More than half the days", 3: "Nearly every day"}
+gate: {items: [0, 1], threshold: 2}          # PHQ-2 >= 2 -> continue to full PHQ-9 (Levis et al. JAMA 2020)
+safety_items: [8]                              # item 9 (0-indexed 8) -> crisis protocol if > 0
+bands: [[0, 4, minimal], [5, 9, mild], [10, 14, moderate], [15, 19, moderately_severe], [20, 27, severe]]
+positive_cutoff: 10
+items:
+  - Little interest or pleasure in doing things
+  - Feeling down, depressed, or hopeless
+  - Trouble falling or staying asleep, or sleeping too much
+  - Feeling tired or having little energy
+  - Poor appetite or overeating
+  - Feeling bad about yourself, or that you are a failure or have let yourself or your family down
+  - Trouble concentrating on things, such as reading the newspaper or watching television
+  - Moving or speaking so slowly that other people could have noticed, or the opposite, being so fidgety or restless that you have been moving around a lot more than usual
+  - Thoughts that you would be better off dead, or of hurting yourself in some way

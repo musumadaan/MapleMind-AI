@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MapleMind Learning Portal</title>
+<style>
+  :root{--bg:#fbf8f4;--ink:#1f2a2e;--muted:#5b6b70;--accent:#b5361f;--accent2:#1f6f6a;--card:#fff;--line:#e6dfd6;--ok:#2f7d4a;--warn:#a86a00}
+  @media (prefers-color-scheme:dark){:root{--bg:#141a1c;--ink:#e9eef0;--muted:#9fb0b5;--card:#1c2427;--line:#2c383c;--accent:#ff7a5c;--accent2:#5cc8bf}}
+  *{box-sizing:border-box} body{margin:0;font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink)}
+  header{padding:28px 24px 18px;border-bottom:1px solid var(--line);display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .logo{width:44px;height:44px;border-radius:12px;background:var(--accent);display:grid;place-items:center;color:#fff;font-weight:800;font-size:20px}
+  h1{margin:0;font-size:24px} header p{margin:2px 0 0;color:var(--muted)}
+  .crisis{margin-left:auto;background:var(--card);border:1px solid var(--accent);color:var(--ink);padding:8px 12px;border-radius:10px;font-size:14px}
+  .wrap{display:grid;grid-template-columns:260px 1fr;gap:0;min-height:calc(100vh - 100px)}
+  nav{border-right:1px solid var(--line);padding:16px} nav button{display:flex;justify-content:space-between;width:100%;text-align:left;padding:10px 12px;margin:2px 0;border:0;border-radius:10px;background:none;color:var(--ink);font:inherit;cursor:pointer}
+  nav button:hover{background:var(--card)} nav button.active{background:var(--card);box-shadow:inset 3px 0 0 var(--accent)}
+  nav .tick{color:var(--ok);font-weight:700} .track{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:16px 12px 4px}
+  .bar{height:6px;background:var(--line);border-radius:6px;margin:8px 12px 0;overflow:hidden} .bar i{display:block;height:100%;background:var(--accent2);width:0;transition:width .3s}
+  main{padding:28px clamp(16px,4vw,56px);max-width:900px}
+  h2{font-size:26px;margin:.2em 0 .4em} h3{margin:1.4em 0 .4em}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:14px 0}
+  .chat{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:14px;white-space:pre-wrap}
+  .u{color:var(--accent2);font-weight:600} .a{color:var(--ink)} .meta{color:var(--muted);font-size:13px}
+  code{background:var(--line);padding:1px 6px;border-radius:6px;font-size:.92em}
+  pre{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;overflow:auto;font-size:13.5px}
+  .quiz button{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;cursor:pointer}
+  .quiz button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,transparent)} .quiz button.wrong{border-color:var(--accent)}
+  .fb{margin-top:6px;font-size:14px;color:var(--muted)}
+  .next{margin-top:18px;padding:10px 16px;border-radius:10px;border:0;background:var(--accent);color:#fff;font:inherit;font-weight:600;cursor:pointer}
+  table{border-collapse:collapse;width:100%;font-size:14px} td,th{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+  .pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;border:1px solid var(--line);margin-right:4px}
+  @media (max-width:760px){.wrap{grid-template-columns:1fr} nav{border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">M</div>
+  <div><h1>MapleMind Learning Portal</h1><p>Learn to use MapleMind in about 15 minutes - for users, clinicians and developers.</p></div>
+  <div class="crisis"><b>In crisis?</b> Call or text <b>9-8-8</b> anytime. Emergency: <b>9-1-1</b>.</div>
+</header>
+<div class="wrap">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<script>
+const LESSONS = [
+ {track:"Users", id:"welcome", title:"1. What MapleMind is (and isn't)", html:`
+  <h2>What MapleMind is - and isn't</h2>
+  <p>MapleMind is a <b>health information navigator</b> for people in Canada. It helps with three linked things:
+  <b>mood &amp; anxiety check-ins</b>, <b>healthy eating, activity &amp; weight-related health</b>, and <b>finding Canadian support</b>.</p>
+  <div class="card"><b>Why these together?</b> Research finds obesity and depression are linked in both directions, and in 2025-2026
+  Statistics Canada measured adult obesity at about 1 in 3 while 15.1% of adults rated their mental health fair or poor.
+  Meanwhile, median waits for community counselling are about 25 days and roughly 5.9 million adults lack a regular primary care provider.</div>
+  <h3>MapleMind will never</h3>
+  <p><span class="pill">diagnose</span><span class="pill">advise on medication or doses</span><span class="pill">give calorie targets</span><span class="pill">replace a clinician or crisis line</span></p>
+  <h3>Every answer shows</h3>
+  <p>Numbered citations like <code>[1]</code>, a <b>Sources</b> list (publisher, date, link), and <b>where to get support</b> in your province.</p>`,
+  quiz:{q:"Someone asks MapleMind whether to double their antidepressant dose. What should happen?",
+   options:["It suggests a new dose based on guidelines","It explains it can't advise on doses and points to a pharmacist, prescriber or 8-1-1","It ignores the question"],answer:1,
+   why:"Medication and dose questions are a hard boundary. The Safety Sentinel flags them and the Care Navigator adds pharmacist / prescriber / 8-1-1 options."}},
+ {track:"Users", id:"ask", title:"2. Asking a question", html:`
+  <h2>Asking a question</h2>
+  <p>Type naturally. MapleMind finds evidence in its Canadian guideline library, writes a short answer, then <b>checks every factual sentence against its source</b> before you see it.</p>
+  <div class="card chat"><span class="u">you&gt;</span> Is depression linked to obesity?
+<span class="a">maplemind&gt;</span> A meta-review found a statistically significant association between obesity and depression in all nine included meta-analyses, with odds ratios from 1.18 to 1.57 [1]. ...
+<span class="meta">Sources: [1] Evidence on the bidirectional association between obesity and depression - BJPsych Open meta-review ...</span></div>
+  <h3>Tips</h3>
+  <ul><li>Mention your province ("I live in Alberta") to get the right health line and services.</li>
+  <li>If your question is vague, MapleMind asks <b>one</b> clarifying question with numbered options - reply with the number.</li>
+  <li>If the library doesn't cover your question, MapleMind says so instead of guessing. That's a feature.</li></ul>`,
+  quiz:{q:"MapleMind replies: 'I don't have reliable information in my Canadian guideline library to answer that confidently.' What does it mean?",
+   options:["The app is broken","The evidence search didn't find support, so it abstained rather than risk a wrong answer","You typed it wrong"],answer:1,
+   why:"The Evidence Agent scores retrieved passages. Weak evidence triggers one query rewrite; if still weak, the system abstains and suggests 8-1-1 or a clinician."}},
+ {track:"Users", id:"checkin", title:"3. The guided check-in", html:`
+  <h2>The guided check-in (static workflow)</h2>
+  <p>Type <code>check-in</code>. MapleMind asks validated questions from the <b>PHQ</b> (mood) and <b>GAD</b> (anxiety) questionnaires, one at a time. Answer 0-3.</p>
+  <div class="card"><b>Why so few questions?</b> It starts with the 2-item brief version. Only if those scores reach the threshold does it continue to the full questionnaire.
+  A large meta-analysis (44 studies, 10,627 people) found this two-step approach about as accurate as asking all 9 depression questions. There is a hard cap of <b>12 questions</b>.</div>
+  <div class="card chat"><span class="u">you&gt;</span> check-in
+<span class="a">maplemind&gt;</span> (PHQ9 item 1, question 1 of max 12) Little interest or pleasure in doing things? 0-3
+<span class="u">you&gt;</span> 0   ...   <span class="u">you&gt;</span> 1
+<span class="a">maplemind&gt;</span> Your check-in summary (screening, not a diagnosis)
+- Mood (PHQ): brief screen score 1 - below the threshold for further questions</div>
+  <p><b>Safety:</b> if you indicate thoughts of self-harm at any point, the questionnaire stops immediately and crisis resources are shown.</p>`,
+  quiz:{q:"You answer the first two mood questions with 0 and 1. What happens next?",
+   options:["All 9 mood questions anyway","It skips the rest of the mood questions (brief screen below threshold) and moves on","It gives a diagnosis"],answer:1,
+   why:"PHQ-2 >= 2 gates the full PHQ-9. A score of 1 is below the gate, so the remaining 7 items are skipped - fewer questions, same screening accuracy."}},
+ {track:"Users", id:"photo", title:"4. Meal photos", html:`
+  <h2>Meal photos (computer vision)</h2>
+  <p>In chat type <code>/image path/to/photo.jpg</code>, or use <code>maplemind ask "What do you think of my lunch?" --image lunch.jpg</code>.</p>
+  <table><tr><th>Step</th><th>What happens</th></tr>
+  <tr><td>Recognise the dish</td><td>A Food-101 image classifier names the dish and reports its confidence.</td></tr>
+  <tr><td>Plate balance</td><td>Colour analysis estimates how much of the plate is vegetables/fruit vs beige/fried foods.</td></tr>
+  <tr><td>Compare with Canada's Food Guide</td><td>About half vegetables &amp; fruit, a quarter whole grains, a quarter protein foods.</td></tr>
+  <tr><td>Energy</td><td>Only a <b>wide range</b> - portion size from one photo is unreliable.</td></tr></table>
+  <p>If confidence is low, MapleMind <b>asks you what the dish is</b> instead of guessing. MapleMind never analyses faces or tries to read emotions from photos.</p>`,
+  quiz:{q:"The classifier is only 30% confident about your dish. What does MapleMind do?",
+   options:["Guesses the most likely dish","Asks you to confirm what the dish is, and still shares plate-balance feedback","Refuses to help"],answer:1,
+   why:"Below vision.min_confidence (0.55) the Vision Agent asks for confirmation - an uncertainty case you can demo live."}},
+ {track:"Users", id:"privacy", title:"5. Safety & privacy", html:`
+  <h2>Safety &amp; privacy</h2>
+  <ul><li><b>Crisis first:</b> a rules-based Safety Sentinel checks every message before anything else. Crisis language goes straight to 9-8-8 / 9-1-1 resources.</li>
+  <li><b>Eating-disorder signals</b> (e.g. very low calorie intake, purging) switch off diet advice and offer NEDIC support (1-866-633-4220).</li>
+  <li><b>Data minimisation:</b> raw questionnaire answers never go to the language model - only a structured summary. Logs are PII-redacted (emails, phone numbers, health-card, postal codes).</li>
+  <li><b>Runs locally:</b> the default setup uses local models, so conversations don't leave your machine.</li></ul>`,
+  quiz:{q:"Which component sees your message first?",options:["The language model","The Safety Sentinel","The vector database"],answer:1,
+   why:"Safety runs first in both workflows; it is deterministic, sub-millisecond, and cannot be prompt-injected."}},
+ {track:"Developers", id:"arch", title:"6. Architecture", html:`
+  <h2>Architecture: 8 agents, 2 workflows, 1 knowledge base</h2>
+  <table><tr><th>Agent</th><th>Job</th></tr>
+  <tr><td>Safety Sentinel</td><td>crisis / emergency / ED / medication / injection detection</td></tr>
+  <tr><td>Router (planner)</td><td>intent + routing reason (dynamic workflow)</td></tr>
+  <tr><td>Screening</td><td>adaptive PHQ-2&rarr;9, GAD-2&rarr;7 with a question budget</td></tr>
+  <tr><td>Vision</td><td>meal photo &rarr; dish, plate balance, uncertainty</td></tr>
+  <tr><td>Evidence</td><td>hybrid BM25 + dense &rarr; RRF &rarr; rerank &rarr; MMR, evidence gate, context packing</td></tr>
+  <tr><td>Composer</td><td>fine-tuned Qwen2.5-1.5B (QLoRA) writes the cited answer</td></tr>
+  <tr><td>Verifier</td><td>claim-level grounding + numeric check &rarr; retry / strip / abstain</td></tr>
+  <tr><td>Care Navigator</td><td>province-aware Canadian resources</td></tr></table>
+  <pre>python -m maplemind.cli graph     # Mermaid diagrams of both LangGraph workflows
+python -m maplemind.cli skills    # reusable skills shared by all agents</pre>`,
+  quiz:{q:"Which workflow adapts its path based on intermediate results like weak evidence?",options:["Static (guided check-in)","Dynamic (Ask MapleMind)"],answer:1,
+   why:"The dynamic graph has conditional edges after routing, after evidence (rewrite/abstain) and after verification (recompose)."}},
+ {track:"Developers", id:"run", title:"7. Run, evaluate, tune", html:`
+  <h2>Run, evaluate, tune</h2>
+  <pre>pip install -r requirements.txt
+export PYTHONPATH=src
+python -m maplemind.cli ingest
+python -m maplemind.cli chat --debug                 # dynamic
+python -m maplemind.cli chat --workflow static       # guided check-in
+python eval/harness.py                               # 25 end-to-end cases
+python eval/compare_context.py                       # wide vs tight context
+python eval/harness.py --sweep retrieval.min_query_coverage=0,0.34,0.5
+python -m maplemind.cli stats                        # p50/p95 per agent</pre>
+  <div class="card"><b>Change a setting live:</b> <code>MAPLEMIND__RETRIEVAL__TOP_K=6 python -m maplemind.cli ask "..." --json</code> - any config key can be overridden via env vars.</div>
+  <h3>Switch to a real model</h3>
+  <pre>ollama pull qwen2.5:1.5b-instruct
+MAPLEMIND__LLM__PROVIDER=ollama python -m maplemind.cli chat</pre>`,
+  quiz:{q:"Which metric is a release blocker if below 1.0?",options:["ROUGE-L","crisis_recall","mean words"],answer:1,
+   why:"Missing a crisis is the costliest error, so crisis recall must be 100% on the test set before any release."}},
+];
+const KEY="maplemind-portal-progress";
+let done={}; try{done=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){done={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}}
+let cur=0;
+function nav(){const n=document.getElementById("nav");let h="",last="";
+ LESSONS.forEach((l,i)=>{if(l.track!==last){h+=`<div class="track">${l.track}</div>`;last=l.track}
+  h+=`<button class="${i===cur?"active":""}" onclick="go(${i})"><span>${l.title}</span><span class="tick">${done[l.id]?"&#10003;":""}</span></button>`});
+ const pct=Math.round(100*Object.keys(done).filter(k=>done[k]).length/LESSONS.length);
+ h+=`<div class="track">Progress ${pct}%</div><div class="bar"><i style="width:${pct}%"></i></div>`;n.innerHTML=h}
+function go(i){cur=i;const l=LESSONS[i];const q=l.quiz;
+ document.getElementById("main").innerHTML=l.html+`<div class="card quiz"><b>Check yourself:</b> ${q.q}${q.options.map((o,j)=>`<button onclick="ans(${j},this)">${o}</button>`).join("")}<div class="fb" id="fb"></div></div>`+
+ (i<LESSONS.length-1?`<button class="next" onclick="go(${i+1})">Next lesson &rarr;</button>`:`<p><b>You're done!</b> Open the README for the full technical write-up.</p>`);nav();window.scrollTo(0,0)}
+function ans(j,el){const l=LESSONS[cur];const btns=el.parentNode.querySelectorAll("button");
+ btns.forEach((b,k)=>{b.classList.remove("right","wrong");if(k===l.quiz.answer)b.classList.add("right")});
+ if(j!==l.quiz.answer)el.classList.add("wrong");else{done[l.id]=true;save();nav()}
+ document.getElementById("fb").textContent=(j===l.quiz.answer?"Correct. ":"Not quite. ")+l.quiz.why}
+go(0);
+</script>
+</body>
+</html>
